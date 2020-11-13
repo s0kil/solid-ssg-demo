@@ -1,7 +1,7 @@
 {
   "name": "solid-ssg-demo",
   "scripts": {
-    "build": "rollup -c rollup.config.js && node export.js"
+    "build": "rollup -c rollup.config.js && node export.js && ls -R public/"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
