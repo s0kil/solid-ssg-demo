@@ -1,0 +1,19 @@
+{
+  "name": "solid-ssg-demo",
+  "scripts": {
+    "build": "rollup -c rollup.config.js && node export.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@minify-html/js": "^0.3.9",
+    "@rollup/plugin-babel": "^5.2.1",
+    "@rollup/plugin-commonjs": "^16.0.0",
+    "@rollup/plugin-node-resolve": "^10.0.0",
+    "babel-preset-solid": "^0.21.3",
+    "rollup": "^2.33.1",
+    "rollup-plugin-copy": "^3.3.0",
+    "solid-js": "^0.21.6",
+    "solid-ssr": "^0.21.6",
+    "solid-styled-components": "^0.21.6"
+  }
+}
