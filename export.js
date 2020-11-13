@@ -32,14 +32,14 @@ renderStatic(
 
 // Minify HTML Files
 // https://github.com/ryansolid/solid/pull/260
-// setTimeout(() => {
-//   Object.values(STATIC_ROUTES).forEach((staticFilePath) => {
-//     const config = minifyHtml.createConfiguration({ minifyJs: true });
-//     const minified = minifyHtml.minifyInPlace(
-//       fs.readFileSync(staticFilePath),
-//       config
-//     );
-//     // console.log("Minified: ", staticFilePath);
-//     fs.writeFileSync(staticFilePath, minified);
-//   });
-// }, 2000);
+setTimeout(() => {
+  Object.values(STATIC_ROUTES).forEach((staticFilePath) => {
+    const config = minifyHtml.createConfiguration({ minifyJs: true });
+    const minified = minifyHtml.minifyInPlace(
+      fs.readFileSync(staticFilePath),
+      config
+    );
+    // console.log("Minified: ", staticFilePath);
+    fs.writeFileSync(staticFilePath, minified);
+  });
+}, 2000);
