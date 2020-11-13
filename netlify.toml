@@ -1,8 +1,3 @@
 [build]
 command = 'npm run build'
 publish = 'public'
-
-[[headers]]
-for = '/*'
-[headers.values]
-Link = 'rel=modulepreload; href=/js/index.js'

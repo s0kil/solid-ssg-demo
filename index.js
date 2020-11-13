@@ -21,6 +21,7 @@ export default async (req) => {
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="/styles.css" />
+      <link rel="modulepreload" href="/js/index.js">
       <script>${generateHydrationScript({
         eventNames: ["click", "blur", "input"],
         resolved: true,
