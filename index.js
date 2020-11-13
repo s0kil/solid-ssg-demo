@@ -1,8 +1,8 @@
 globalThis.isSSR = true;
 
-import {awaitSuspense} from "solid-js";
-import {renderToString, generateHydrationScript} from "solid-js/dom";
-import {extractCss} from "solid-styled-components";
+import { awaitSuspense } from "solid-js";
+import { renderToString, generateHydrationScript } from "solid-js/dom";
+import { extractCss } from "solid-styled-components";
 
 import App from "./src/components/App";
 
@@ -11,8 +11,7 @@ const lang = "en";
 // entry point for server render
 export default async (req) => {
   const string = await renderToString(
-    awaitSuspense(() => <App url={
-    req.url} />)
+    awaitSuspense(() => <App url={req.url} />)
   );
   const style = extractCss();
   return `<!DOCTYPE html>

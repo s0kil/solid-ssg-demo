@@ -5,47 +5,47 @@ import copy from "rollup-plugin-copy";
 
 export default [
   {
-    input : "index.js",
-    output : [
+    input: "index.js",
+    output: [
       {
-        dir : "lib",
-        exports : "auto",
-        format : "cjs",
+        dir: "lib",
+        exports: "auto",
+        format: "cjs",
       },
     ],
-    external : [ "solid-js", "solid-js/dom" ],
-    plugins : [
-      nodeResolve({preferBuiltins : true}),
+    external: ["solid-js", "solid-js/dom"],
+    plugins: [
+      nodeResolve({ preferBuiltins: true }),
       babel({
-        babelHelpers : "bundled",
-        presets : [
-          [ "solid", {generate : "ssr", hydratable : true, async : true} ],
+        babelHelpers: "bundled",
+        presets: [
+          ["solid", { generate: "ssr", hydratable: true, async: true }],
         ],
       }),
       common(),
     ],
   },
   {
-    input : "src/index.js",
-    output : [
+    input: "src/index.js",
+    output: [
       {
-        dir : "public/js",
-        format : "esm",
+        dir: "public/js",
+        format: "esm",
       },
     ],
-    preserveEntrySignatures : false,
-    plugins : [
+    preserveEntrySignatures: false,
+    plugins: [
       nodeResolve(),
       babel({
-        babelHelpers : "bundled",
-        presets : [ [ "solid", {generate : "dom", hydratable : true} ] ],
+        babelHelpers: "bundled",
+        presets: [["solid", { generate: "dom", hydratable: true }]],
       }),
       common(),
       copy({
-        targets : [
+        targets: [
           {
-            src : [ "static/*" ],
-            dest : "public",
+            src: ["static/*"],
+            dest: "public",
           },
         ],
       }),
