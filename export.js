@@ -44,7 +44,6 @@ const log = (message) => console.log(`> ${message}`);
         fs.readFileSync(staticFilePath),
         htmlMinifierConfig
       );
-      // console.log("Minified: ", staticFilePath);
       return fs.promises.writeFile(staticFilePath, minified);
     })
   );

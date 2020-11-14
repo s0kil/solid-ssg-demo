@@ -21,7 +21,7 @@ const App = RouteHOC(() => {
           <Link path="settings">Settings</Link>
         </li>
       </ul>
-      <div class="tab" classList={{"pending": pending()}}>
+      <div class="tab" classList={{ pending: pending() }}>
         <Suspense fallback="Loading...">
           <Switch>
             <Match when={matches("index")}>

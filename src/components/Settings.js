@@ -1,9 +1,9 @@
 import { styled } from "solid-styled-components";
 
 const Div = styled("div")`
- color: orange;
- font-weight: 800;
-`
+  color: orange;
+  font-weight: 800;
+`;
 
 const Settings = () => (
   <>

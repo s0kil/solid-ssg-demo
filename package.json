@@ -2,6 +2,7 @@
   "name": "solid-ssg-demo",
   "scripts": {
     "build": "rollup -c rollup.config.js && node export.js",
+    "serve": "sirv public/ --port 8000",
     "clean": "rm -rf lib/ public/"
   },
   "devDependencies": {
@@ -13,6 +14,7 @@
     "babel-preset-solid": "^0.22.0",
     "rollup": "^2.33.2",
     "rollup-plugin-copy": "^3.3.0",
+    "sirv-cli": "^1.0.8",
     "solid-js": "^0.22.0",
     "solid-ssr": "^0.22.0",
     "solid-styled-components": "^0.22.0"
