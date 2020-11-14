@@ -3,43 +3,49 @@ const path = require("path");
 const renderStatic = require("solid-ssr/static");
 const minifyHtml = require("@minify-html/js");
 
-const PAGES = ["index", "profile", "settings"];
-const pathToServer = path.resolve(__dirname, "lib/index.js");
-const pathToPublic = path.resolve(__dirname, "public");
+const log = (message) => console.log(`> ${message}`);
 
-const STATIC_ROUTES = PAGES.reduce((routes, page) => {
-  if (page == "index") {
-    routes[page] = path.join(pathToPublic, "index.html");
-  } else {
-    routes[page] = path.join(pathToPublic, page, "index.html");
-  }
-  return routes;
-}, {});
+(async function main() {
+  const PAGES = ["index", "profile", "settings"];
+  const pathToServer = path.resolve(__dirname, "lib/index.js");
+  const pathToPublic = path.resolve(__dirname, "public");
 
-// Create Directories
-Object.values(STATIC_ROUTES).forEach((staticFilePath) => {
-  const dir = path.parse(staticFilePath).dir;
-  fs.mkdirSync(dir, { recursive: true });
-});
+  const STATIC_ROUTES = PAGES.reduce((routes, page) => {
+    if (page == "index") {
+      routes[page] = path.join(pathToPublic, "index.html");
+    } else {
+      routes[page] = path.join(pathToPublic, page, "index.html");
+    }
+    return routes;
+  }, {});
 
-renderStatic(
-  PAGES.map((page) => ({
-    entry: pathToServer,
-    output: STATIC_ROUTES[page],
-    url: `/${page}`,
-  }))
-);
+  log("Create Directories");
+  await Promise.all(
+    Object.values(STATIC_ROUTES).map((staticFilePath) => {
+      const dir = path.parse(staticFilePath).dir;
+      return fs.promises.mkdir(dir, { recursive: true });
+    })
+  );
 
-// Minify HTML Files
-// https://github.com/ryansolid/solid/pull/260
-setTimeout(() => {
-  Object.values(STATIC_ROUTES).forEach((staticFilePath) => {
-    const config = minifyHtml.createConfiguration({ minifyJs: true });
-    const minified = minifyHtml.minifyInPlace(
-      fs.readFileSync(staticFilePath),
-      config
-    );
-    // console.log("Minified: ", staticFilePath);
-    fs.writeFileSync(staticFilePath, minified);
-  });
-}, 2000);
+  log("Render Pages");
+  await renderStatic(
+    PAGES.map((page) => ({
+      entry: pathToServer,
+      output: STATIC_ROUTES[page],
+      url: `/${page}`,
+    }))
+  );
+
+  log("Minify HTML Files");
+  const htmlMinifierConfig = minifyHtml.createConfiguration({ minifyJs: true });
+  await Promise.all(
+    Object.values(STATIC_ROUTES).map((staticFilePath) => {
+      const minified = minifyHtml.minifyInPlace(
+        fs.readFileSync(staticFilePath),
+        htmlMinifierConfig
+      );
+      // console.log("Minified: ", staticFilePath);
+      return fs.promises.writeFile(staticFilePath, minified);
+    })
+  );
+})();
